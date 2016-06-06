@@ -24,16 +24,16 @@
     owner: "{{ teamcity_agent_user }}"
   with_items:
     - "{{ teamcity_agent_deploy_dir }}"
+    - "{{ teamcity_agent_deploy_dir }}/buildAgent"
 
 - name: Teamcity | install the buildAgent files
-  synchronize:
-    mode: pull
-    src: "{{ teamcity_install_dir }}/TeamCity/buildAgent"
-    dest: "{{ teamcity_agent_deploy_dir }}/"
-  become: true
-  become_user: "{{ teamcity_agent_user }}"
+  unarchive:
+    src: http://localhost:8111/update/buildAgent.zip
+    dest: "{{ teamcity_agent_deploy_dir }}/buildAgent"
+    owner: "{{ teamcity_agent_user }}"
+    copy: no
 
-- name: Teamcity | Template Agent upstart
+- name: Teamcity | Template Agent configuration
   template:
     src: agent/buildAgent.properties.j2
     dest: "{{ teamcity_agent_deploy_dir }}/buildAgent/conf/buildAgent.properties"

@@ -13,10 +13,10 @@ USER="{{ teamcity_agent_user }}"
 
 case "$1" in
   start)
-    su - $USER -c "cd {{ teamcity_agent_deploy_dir }}/BuildAgent/bin ; ./agent.sh start"
+    su - $USER -c "cd {{ teamcity_agent_deploy_dir }}/buildAgent/bin ; /bin/sh agent.sh start"
     ;;
   stop)
-    su - $USER -c "cd {{ teamcity_agent_deploy_dir }}/BuildAgent/bin ; ./agent.sh stop"
+    su - $USER -c "cd {{ teamcity_agent_deploy_dir }}/buildAgent/bin ; /bin/sh agent.sh stop"
     ;;
   *)
     echo "usage start/stop"

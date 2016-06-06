@@ -9,6 +9,7 @@
 
   option_install_java: true
 
+  option_install_teamcity: true
   teamcity_install_dir: /opt/teamcity
   teamcity_version: 9.1.7
   teamcity_domain: teamcity.vagrant.dev
