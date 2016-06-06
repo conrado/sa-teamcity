@@ -1,69 +1,38 @@
-SA-TEAMCITY
-===========
+Role Name
+=========
 
-[![Build Status](https://travis-ci.org/softasap/sa-teamcity.svg?branch=master)](https://travis-ci.org/softasap/sa-teamcity)
+A brief description of the role goes here.
 
-Example of use:
+Requirements
+------------
 
-- hosts: www
+Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
 
-  vars:
-    - root_dir: "{{playbook_dir}}/../"
+Role Variables
+--------------
 
+A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
 
-  pre_tasks:
-    - debug: msg="Pre tasks section"
+Dependencies
+------------
 
-  roles:
+A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
 
-    - {
-        role: "sa-teamcity"
-      }
+Example Playbook
+----------------
 
+Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
-  tasks:
-    - debug: msg="Tasks section"
+    - hosts: servers
+      roles:
+         - { role: username.rolename, x: 42 }
 
+License
+-------
 
+BSD
 
-Possible overrides:
+Author Information
+------------------
 
-  option_install_postgres: true
-
-  option_install_nginx: true
-
-  option_install_java: true
-
-  teamcity_install_dir: /opt/teamcity
-  teamcity_version: 9.1.6
-  teamcity_domain: teamcity.vagrant.dev
-
-# JAVA SECTION
-
-  java_version: 7
-
-# / JAVA SECTION
-
-# POSTGRES SECTION
-  option_create_app_user: true
-
-  postgresql_version: 9.3
-
-  postgresql_listen_addresses: localhost  # * for any address
-
-  postgresql_port: 5432
-
-  # Set remotely to allow listening
-  #postgres_app_network: "192.168.0.1/32"
-  #postgres_app_network_regex: "192\.168\.0\.1\/32"
-
-  # Set remotely to allow listening
-  #postgres_dev_network: "192.168.0.1/32"
-
-  db_host: localhost
-  db_user: teamcity
-  db_password: BDa29Ia3BAROci66DQ99
-  db_name: teamcity
-
-#/ POSTGRES SECTION
-
+An optional section for the role authors to include contact information, or a website (HTML is not allowed).

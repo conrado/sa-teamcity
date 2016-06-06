@@ -1,0 +1,61 @@
+---
+- name: Teamcity | ensure application user' group
+  group:
+    name: "{{ teamcity_agent_user }}"
+    system: yes
+  become: yes
+  tags:
+    - teamcity
+
+- name: Teamcity | ensure application user
+  user:
+    name: "{{ teamcity_agent_user }}"
+    comment: "Teamcity CI"
+    group: "{{ teamcity_agent_user }}"
+    system: yes
+  become: yes
+  tags:
+    - teamcity
+
+- name: Teamcity | ensure agent install directory
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ teamcity_agent_user }}"
+  with_items:
+    - "{{ teamcity_agent_deploy_dir }}"
+
+- name: Teamcity | install the buildAgent files
+  synchronize:
+    mode: pull
+    src: "{{ teamcity_install_dir }}/TeamCity/buildAgent"
+    dest: "{{ teamcity_agent_deploy_dir }}/"
+  become: true
+  become_user: "{{ teamcity_agent_user }}"
+
+- name: Teamcity | Template Agent upstart
+  template:
+    src: agent/buildAgent.properties.j2
+    dest: "{{ teamcity_agent_deploy_dir }}/buildAgent/conf/buildAgent.properties"
+    owner: "{{ teamcity_agent_user }}"
+  become: yes
+  tags:
+    - teamcity
+
+- name: Teamcity | Template Agent upstart
+  template:
+    src: upstart/teamcity-agent.j2
+    dest: /etc/init.d/teamcity-agent
+    mode: 0755
+  become: yes
+  tags:
+    - teamcity
+
+- name: Teamcity | Start teamcity agent
+  service:
+    name: teamcity-agent
+    state: started
+    enabled: true
+  become: yes
+  tags:
+    - teamcity

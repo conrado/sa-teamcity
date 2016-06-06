@@ -10,8 +10,17 @@
   option_install_java: true
 
   teamcity_install_dir: /opt/teamcity
-  teamcity_version: 9.1.6
+  teamcity_version: 9.1.7
   teamcity_domain: teamcity.vagrant.dev
+
+# teamcity-agent
+
+  option_install_agent: true
+
+  teamcity_agent_deploy_dir: /opt
+  teamcity_agent_user: teamcity
+
+# / teamcity-agent
 
 # JAVA SECTION
 
